@@ -1,57 +1,130 @@
-# cay ocagi yonetim sistemi
+# Çay Ocağı Yönetim Sistemi
 
-Bu modül **operasyonel yazilimlar** kategorisi altında kamu kurumları için geliştirilecek açık kaynak **cay ocagi yonetim sistemi** projesidir.
+Kamu kurumları için geliştirilmiş açık kaynak çay ocağı yönetim sistemi. Malzeme takibi, tüketim yönetimi, raporlama ve personel yönetimi özelliklerini içerir.
 
-## Proje Hakkında
+## 🚀 Özellikler
 
-Bu proje, kamu kurumlarının dijital dönüşüm sürecinde ihtiyaç duyulan cay ocagi yonetim sistemi çözümünü açık kaynak olarak sunmayı hedeflemektedir.
+- **Malzeme Yönetimi**: Stok takibi, kritik stok uyarıları
+- **Tüketim Takibi**: Günlük tüketim kayıtları, stok giriş/çıkış
+- **Raporlama**: Maliyet analizi, stok durumu, trend raporları
+- **Personel Yönetimi**: Kullanıcı yetkilendirme, rol yönetimi
+- **Dashboard**: Anlık durum özeti, kritik stok bildirimleri
 
-## Özellikler
+## 🛠️ Teknoloji Stack
 
-- [ ] Temel sistem mimarisi
-- [ ] Kullanıcı yönetimi ve yetkilendirme
-- [ ] RESTful API geliştirme
-- [ ] Güvenlik katmanları
-- [ ] Veri yönetimi ve saklama
-- [ ] Raporlama ve analitik
-- [ ] Mobil uygulama desteği
-- [ ] Entegrasyon API'leri
+### Backend
+- Node.js + Express.js
+- MongoDB
+- JWT Authentication
+- Bcrypt.js
 
-## Teknoloji Yığını
+### Frontend
+- React 18
+- Tailwind CSS
+- React Router v6
+- Recharts (grafikler)
+- Axios
 
-- **Backend:** (Belirlenecek - Java/Spring, Python/Django, Node.js vb.)
-- **Frontend:** (Belirlenecek - React, Vue.js, Angular vb.)
-- **Veritabanı:** (Belirlenecek - PostgreSQL, MySQL, MongoDB vb.)
-- **Cache:** Redis
-- **Message Queue:** RabbitMQ / Apache Kafka
-- **Container:** Docker
-- **Orchestration:** Kubernetes
+## 📋 Gereksinimler
 
-## Kurulum
+- Node.js v14+
+- MongoDB v4.4+
+- npm veya yarn
 
+## 🔧 Kurulum
+
+### 1. Repoyu klonlayın
 ```bash
-# Proje henüz geliştirme aşamasındadır
-# Kurulum adımları eklenecek
+git clone [repo-url]
+cd cay-ocagi-yonetim-sistemi
 ```
 
-## Kullanım
-
+### 2. Bağımlılıkları yükleyin
 ```bash
-# Kullanım örnekleri eklenecek
+npm run install:all
 ```
 
-## API Dokümantasyonu
+### 3. Environment dosyasını oluşturun
+```bash
+cp backend/.env.example backend/.env
+```
 
-API dokümantasyonu için [/docs](./docs) klasörüne bakınız.
+### 4. MongoDB'yi başlatın
+```bash
+# Docker kullanıyorsanız
+docker-compose up -d mongodb
 
-## Katkıda Bulunma
+# Veya lokal MongoDB kullanın
+```
 
-Projeye katkıda bulunmak için lütfen [CONTRIBUTING.md](../CONTRIBUTING.md) dosyasını inceleyin.
+### 5. Uygulamayı başlatın
+```bash
+# Development modunda
+npm run dev
 
-## Lisans
+# Veya ayrı ayrı
+cd backend && npm run dev
+cd frontend && npm start
+```
 
-Bu proje açık kaynak lisansı altında yayınlanacaktır. Detaylar için [LICENSE](../LICENSE) dosyasına bakınız.
+## 🐳 Docker ile Çalıştırma
 
-## İletişim
+```bash
+docker-compose up -d
+```
 
-Proje hakkında sorularınız için issue açabilir veya proje ekibiyle iletişime geçebilirsiniz.
+Uygulama şu adreslerde çalışacaktır:
+- Frontend: http://localhost:3000
+- Backend API: http://localhost:5000
+- MongoDB: localhost:27017
+
+## 🔐 İlk Giriş
+
+Sistem ilk kurulumda demo kullanıcı oluşturur:
+- Kullanıcı: admin
+- Şifre: 123456
+
+**ÖNEMLİ**: Üretim ortamında bu kullanıcıyı değiştirin!
+
+## 📚 API Endpoints
+
+### Auth
+- POST `/api/auth/login` - Giriş yap
+- POST `/api/auth/register` - Yeni kullanıcı
+- GET `/api/auth/me` - Mevcut kullanıcı
+
+### Malzemeler
+- GET `/api/malzemeler` - Tüm malzemeler
+- POST `/api/malzemeler` - Yeni malzeme (Admin)
+- PUT `/api/malzemeler/:id` - Malzeme güncelle (Admin)
+- DELETE `/api/malzemeler/:id` - Malzeme sil (Admin)
+
+### Tüketim
+- GET `/api/tuketim` - Tüketim kayıtları
+- POST `/api/tuketim` - Yeni tüketim kaydı
+- GET `/api/tuketim/gunluk-ozet` - Günlük özet
+
+### Raporlar
+- GET `/api/raporlar/stok-durumu` - Stok durumu
+- GET `/api/raporlar/aylik` - Aylık rapor
+- GET `/api/raporlar/maliyet-analizi` - Maliyet analizi
+
+## 🤝 Katkıda Bulunma
+
+1. Fork edin
+2. Feature branch oluşturun (`git checkout -b feature/amazing-feature`)
+3. Commit edin (`git commit -m 'Add some amazing feature'`)
+4. Push edin (`git push origin feature/amazing-feature`)
+5. Pull Request açın
+
+## 📄 Lisans
+
+Bu proje MIT lisansı altında lisanslanmıştır.
+
+## 👥 İletişim
+
+Proje Sahibi: Kamu AKYS Ekibi
+
+---
+
+🇹🇷 Türkiye Cumhuriyeti kamu kurumları için açık kaynak çözüm
