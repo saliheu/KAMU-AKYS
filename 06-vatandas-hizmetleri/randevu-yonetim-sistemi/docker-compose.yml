@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:6
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: randevu_db
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    environment:
+      MONGODB_URI: mongodb://admin:password@mongodb:27017/randevu_db?authSource=admin
+      JWT_SECRET: your-secret-key-here
+      JWT_EXPIRE: 7d
+      CLIENT_URL: http://localhost:8080
+    depends_on:
+      - mongodb
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:80"
+    environment:
+      VUE_APP_API_URL: http://localhost:5000/api
+    depends_on:
+      - backend
+
+volumes:
+  mongo_data:
