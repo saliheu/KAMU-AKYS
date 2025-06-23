@@ -1,0 +1,53 @@
+.leave-balance-container {
+  margin-top: 32px;
+
+  h2 {
+    margin-bottom: 16px;
+    color: #333;
+  }
+}
+
+.balance-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 16px;
+}
+
+.balance-card {
+  .mat-card-header {
+    margin-bottom: 16px;
+  }
+
+  .annual-leave-icon {
+    background-color: #2196f3;
+    color: white;
+  }
+
+  .sick-leave-icon {
+    background-color: #ff9800;
+    color: white;
+  }
+}
+
+.balance-info {
+  margin-bottom: 16px;
+}
+
+.balance-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  font-size: 14px;
+
+  .value {
+    font-weight: 500;
+  }
+
+  .remaining {
+    color: #4caf50;
+  }
+}
+
+.mat-progress-bar {
+  margin-top: 8px;
+}

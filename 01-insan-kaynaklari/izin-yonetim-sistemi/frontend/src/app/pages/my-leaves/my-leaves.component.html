@@ -1,0 +1,96 @@
+<div class="my-leaves-container">
+  <div class="header">
+    <h1>İzin Taleplerim</h1>
+    <button mat-raised-button color="primary" routerLink="/leave-request">
+      <mat-icon>add</mat-icon>
+      Yeni İzin Talebi
+    </button>
+  </div>
+
+  <mat-card>
+    <mat-card-content>
+      <div *ngIf="loading" class="loading-container">
+        <mat-spinner></mat-spinner>
+      </div>
+
+      <div *ngIf="!loading" class="table-container">
+        <table mat-table [dataSource]="dataSource" matSort>
+          
+          <ng-container matColumnDef="leaveType">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>İzin Türü</th>
+            <td mat-cell *matCellDef="let element">
+              {{leaveTypeLabels[element.leaveType]}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="startDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Başlangıç</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.startDate | date:'dd.MM.yyyy'}}
+              <span *ngIf="element.halfDay" class="half-day-label">
+                ({{element.halfDayPeriod === 'MORNING' ? 'Sabah' : 'Öğleden sonra'}})
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="endDate">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Bitiş</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.endDate | date:'dd.MM.yyyy'}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="status">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Durum</th>
+            <td mat-cell *matCellDef="let element">
+              <span class="status-chip" [ngClass]="getStatusClass(element.status)">
+                {{statusLabels[element.status]}}
+              </span>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="createdAt">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header>Talep Tarihi</th>
+            <td mat-cell *matCellDef="let element">
+              {{element.createdAt | date:'dd.MM.yyyy HH:mm'}}
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="actions">
+            <th mat-header-cell *matHeaderCellDef>İşlemler</th>
+            <td mat-cell *matCellDef="let element">
+              <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="İşlemler">
+                <mat-icon>more_vert</mat-icon>
+              </button>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item [routerLink]="['/leave-details', element.id]">
+                  <mat-icon>visibility</mat-icon>
+                  <span>Detayları Görüntüle</span>
+                </button>
+                <button mat-menu-item *ngIf="canCancel(element)" (click)="cancelLeave(element)">
+                  <mat-icon>cancel</mat-icon>
+                  <span>İptal Et</span>
+                </button>
+              </mat-menu>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+          <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="6">Henüz izin talebiniz bulunmamaktadır.</td>
+          </tr>
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" 
+                       [pageSize]="10"
+                       showFirstLastButtons
+                       aria-label="İzin talepleri sayfası">
+        </mat-paginator>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <app-leave-balance></app-leave-balance>
+</div>

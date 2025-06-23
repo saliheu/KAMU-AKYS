@@ -1,0 +1,55 @@
+<div class="leave-balance-container">
+  <h2>İzin Durumu</h2>
+  
+  <div class="balance-cards">
+    <mat-card class="balance-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="annual-leave-icon">beach_access</mat-icon>
+        <mat-card-title>Yıllık İzin</mat-card-title>
+        <mat-card-subtitle>{{currentUser?.annualLeaveBalance || 0}} gün</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="balance-info">
+          <div class="balance-row">
+            <span>Kullanılan:</span>
+            <span class="value">{{currentUser?.usedAnnualLeave || 0}} gün</span>
+          </div>
+          <div class="balance-row">
+            <span>Kalan:</span>
+            <span class="value remaining">{{annualLeaveRemaining}} gün</span>
+          </div>
+        </div>
+        <mat-progress-bar 
+          mode="determinate" 
+          [value]="annualLeavePercentage"
+          [color]="annualLeavePercentage > 80 ? 'warn' : 'primary'">
+        </mat-progress-bar>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="balance-card">
+      <mat-card-header>
+        <mat-icon mat-card-avatar class="sick-leave-icon">local_hospital</mat-icon>
+        <mat-card-title>Hastalık İzni</mat-card-title>
+        <mat-card-subtitle>{{currentUser?.sickLeaveBalance || 0}} gün</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <div class="balance-info">
+          <div class="balance-row">
+            <span>Kullanılan:</span>
+            <span class="value">{{currentUser?.usedSickLeave || 0}} gün</span>
+          </div>
+          <div class="balance-row">
+            <span>Kalan:</span>
+            <span class="value remaining">{{sickLeaveRemaining}} gün</span>
+          </div>
+        </div>
+        <mat-progress-bar 
+          mode="determinate" 
+          [value]="sickLeavePercentage"
+          [color]="sickLeavePercentage > 80 ? 'warn' : 'accent'">
+        </mat-progress-bar>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

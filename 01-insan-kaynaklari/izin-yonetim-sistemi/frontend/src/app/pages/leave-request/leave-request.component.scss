@@ -1,0 +1,33 @@
+.leave-request-container {
+  max-width: 800px;
+  margin: 0 auto;
+  
+  h1 {
+    margin-bottom: 24px;
+    color: #333;
+  }
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.half-day-checkbox {
+  display: flex;
+  align-items: center;
+  height: 56px;
+}
+
+.disabled {
+  opacity: 0.6;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 16px;
+  margin-top: 24px;
+}
