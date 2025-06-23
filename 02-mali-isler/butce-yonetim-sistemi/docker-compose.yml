@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: budget-mongodb
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin123
+      MONGO_INITDB_DATABASE: budget_management
+    volumes:
+      - mongodb_data:/data/db
+    ports:
+      - "27017:27017"
+    networks:
+      - budget-network
+
+  backend:
+    build: ./backend
+    container_name: budget-backend
+    restart: always
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGODB_URI=mongodb://admin:admin123@mongodb:27017/budget_management?authSource=admin
+      - JWT_SECRET=your-super-secret-jwt-key
+      - CLIENT_URL=http://localhost
+    volumes:
+      - ./backend/uploads:/app/uploads
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mongodb
+    networks:
+      - budget-network
+
+  frontend:
+    build: ./frontend
+    container_name: budget-frontend
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - budget-network
+
+volumes:
+  mongodb_data:
+
+networks:
+  budget-network:
+    driver: bridge
