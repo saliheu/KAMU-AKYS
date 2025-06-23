@@ -1,10 +1,22 @@
 # Türkiye Cumhuriyeti Kamu Kurumları Açık Kaynak Yazılım Seti
 
+🇹🇷 Türkiye kamu kurumlarının dijital dönüşümü için açık kaynak yazılım çözümleri
+
 Bu repo, kamu kurumlarının ortak yazılım ihtiyaçlarını karşılamak üzere geliştirilecek açık kaynak yazılım projelerinin iskelet yapısını içermektedir.
 
 📋 **Toplam: 30 Ana Kategori, 150+ Proje**
 
 📖 Detaylı bilgi için [GENEL_PROJE_DOKUMANI.md](GENEL_PROJE_DOKUMANI.md) dosyasına bakınız.
+
+## Misyonumuz
+Kamu kurumlarının ortak ihtiyaçlarını karşılayan, güvenli, ölçeklenebilir ve sürdürülebilir açık kaynak yazılım çözümleri geliştirmek.
+
+## Değerlerimiz
+- 🔒 Güvenlik ve Gizlilik
+- 🌐 Açıklık ve Şeffaflık  
+- 🤝 İşbirliği ve Topluluk
+- 🚀 İnovasyon ve Kalite
+- 🇹🇷 Ulusal Teknoloji Egemenliği
 
 ## Proje Kategorileri
 
