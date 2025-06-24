@@ -1,57 +1,57 @@
-# is zekasi raporlama sistemi
+# İş Zekası Raporlama Sistemi
 
-Bu modül **raporlama analitik** kategorisi altında kamu kurumları için geliştirilecek açık kaynak **is zekasi raporlama sistemi** projesidir.
-
-## Proje Hakkında
-
-Bu proje, kamu kurumlarının dijital dönüşüm sürecinde ihtiyaç duyulan is zekasi raporlama sistemi çözümünü açık kaynak olarak sunmayı hedeflemektedir.
+Kamu kurumları için geliştirilmiş kapsamlı iş zekası ve raporlama platformu.
 
 ## Özellikler
 
-- [ ] Temel sistem mimarisi
-- [ ] Kullanıcı yönetimi ve yetkilendirme
-- [ ] RESTful API geliştirme
-- [ ] Güvenlik katmanları
-- [ ] Veri yönetimi ve saklama
-- [ ] Raporlama ve analitik
-- [ ] Mobil uygulama desteği
-- [ ] Entegrasyon API'leri
+- ✅ Gerçek zamanlı veri görselleştirme
+- ✅ Özelleştirilebilir dashboard'lar
+- ✅ Otomatik rapor oluşturma ve zamanlama
+- ✅ Çoklu veri kaynağı desteği (SQL, NoSQL, API, CSV, Excel)
+- ✅ Gelişmiş grafik ve chart kütüphanesi
+- ✅ Veri analizi ve tahminleme
+- ✅ KPI takibi ve uyarı sistemi
+- ✅ Rol bazlı erişim kontrolü
+- ✅ Rapor paylaşımı ve export (PDF, Excel, CSV)
+- ✅ Mobil uyumlu arayüz
 
-## Teknoloji Yığını
+## Teknolojiler
 
-- **Backend:** (Belirlenecek - Java/Spring, Python/Django, Node.js vb.)
-- **Frontend:** (Belirlenecek - React, Vue.js, Angular vb.)
-- **Veritabanı:** (Belirlenecek - PostgreSQL, MySQL, MongoDB vb.)
-- **Cache:** Redis
-- **Message Queue:** RabbitMQ / Apache Kafka
-- **Container:** Docker
-- **Orchestration:** Kubernetes
+### Backend
+- Node.js + Express.js
+- PostgreSQL (ana veritabanı)
+- MongoDB (esnek veri saklama)
+- Redis (önbellekleme)
+- ClickHouse (analitik veritabanı)
+- Apache Kafka (veri akışı)
+- Bull Queue (arka plan işleri)
+
+### Frontend
+- React + TypeScript
+- Redux Toolkit
+- Material-UI
+- Recharts & D3.js
+- Apache ECharts
+- Socket.io Client
 
 ## Kurulum
 
 ```bash
-# Proje henüz geliştirme aşamasındadır
-# Kurulum adımları eklenecek
+# Backend
+cd backend
+npm install
+cp .env.example .env
+npm run dev
+
+# Frontend
+cd frontend
+npm install
+npm run dev
 ```
 
-## Kullanım
-
-```bash
-# Kullanım örnekleri eklenecek
-```
-
-## API Dokümantasyonu
-
-API dokümantasyonu için [/docs](./docs) klasörüne bakınız.
-
-## Katkıda Bulunma
-
-Projeye katkıda bulunmak için lütfen [CONTRIBUTING.md](../CONTRIBUTING.md) dosyasını inceleyin.
+## Varsayılan Kullanıcı
+- Email: admin@bi.gov.tr
+- Şifre: Admin123!
 
 ## Lisans
-
-Bu proje açık kaynak lisansı altında yayınlanacaktır. Detaylar için [LICENSE](../LICENSE) dosyasına bakınız.
-
-## İletişim
-
-Proje hakkında sorularınız için issue açabilir veya proje ekibiyle iletişime geçebilirsiniz.
+MIT

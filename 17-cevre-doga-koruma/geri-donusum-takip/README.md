@@ -1,57 +1,63 @@
-# geri donusum takip
+# Geri Dönüşüm Takip Sistemi
 
-Bu modül **cevre doga koruma** kategorisi altında kamu kurumları için geliştirilecek açık kaynak **geri donusum takip** projesidir.
-
-## Proje Hakkında
-
-Bu proje, kamu kurumlarının dijital dönüşüm sürecinde ihtiyaç duyulan geri donusum takip çözümünü açık kaynak olarak sunmayı hedeflemektedir.
+Akıllı şehirler için kapsamlı geri dönüşüm ve atık yönetimi takip sistemi.
 
 ## Özellikler
 
-- [ ] Temel sistem mimarisi
-- [ ] Kullanıcı yönetimi ve yetkilendirme
-- [ ] RESTful API geliştirme
-- [ ] Güvenlik katmanları
-- [ ] Veri yönetimi ve saklama
-- [ ] Raporlama ve analitik
-- [ ] Mobil uygulama desteği
-- [ ] Entegrasyon API'leri
+- ✅ QR kod ile atık takibi
+- ✅ IoT sensörlerle konteyner doluluk takibi
+- ✅ Mobil uygulama ile vatandaş katılımı
+- ✅ Geri dönüşüm puanı ve ödül sistemi
+- ✅ Rota optimizasyonu için toplama planlaması
+- ✅ Gerçek zamanlı harita görüntüleme
+- ✅ Atık türlerine göre istatistikler
+- ✅ Karbon ayak izi hesaplama
+- ✅ Belediye entegrasyonu
+- ✅ Raporlama ve analitik
 
-## Teknoloji Yığını
+## Teknolojiler
 
-- **Backend:** (Belirlenecek - Java/Spring, Python/Django, Node.js vb.)
-- **Frontend:** (Belirlenecek - React, Vue.js, Angular vb.)
-- **Veritabanı:** (Belirlenecek - PostgreSQL, MySQL, MongoDB vb.)
-- **Cache:** Redis
-- **Message Queue:** RabbitMQ / Apache Kafka
-- **Container:** Docker
-- **Orchestration:** Kubernetes
+### Backend
+- Node.js + Express.js
+- PostgreSQL + PostGIS
+- Redis
+- MQTT (IoT iletişimi)
+- Socket.io
+- Bull Queue
+
+### Frontend
+- React + TypeScript
+- Redux Toolkit
+- Material-UI
+- Leaflet (harita)
+- Chart.js
+
+### Mobil
+- React Native
+- QR kod tarayıcı
 
 ## Kurulum
 
 ```bash
-# Proje henüz geliştirme aşamasındadır
-# Kurulum adımları eklenecek
+# Backend
+cd backend
+npm install
+cp .env.example .env
+npm run dev
+
+# Frontend
+cd frontend
+npm install
+npm run dev
 ```
 
-## Kullanım
+## API Endpoints
 
-```bash
-# Kullanım örnekleri eklenecek
-```
-
-## API Dokümantasyonu
-
-API dokümantasyonu için [/docs](./docs) klasörüne bakınız.
-
-## Katkıda Bulunma
-
-Projeye katkıda bulunmak için lütfen [CONTRIBUTING.md](../CONTRIBUTING.md) dosyasını inceleyin.
+- `POST /api/waste/scan` - QR kod ile atık kaydı
+- `GET /api/containers` - Konteyner konumları
+- `POST /api/collection/optimize` - Rota optimizasyonu
+- `GET /api/users/:id/points` - Kullanıcı puanları
+- `GET /api/analytics/carbon` - Karbon tasarrufu
 
 ## Lisans
-
-Bu proje açık kaynak lisansı altında yayınlanacaktır. Detaylar için [LICENSE](../LICENSE) dosyasına bakınız.
-
-## İletişim
-
-Proje hakkında sorularınız için issue açabilir veya proje ekibiyle iletişime geçebilirsiniz.
+MIT

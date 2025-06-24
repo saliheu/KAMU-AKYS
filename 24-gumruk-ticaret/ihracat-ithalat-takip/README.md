@@ -1,57 +1,70 @@
-# ihracat ithalat takip
+# İhracat İthalat Takip Sistemi
 
-Bu modül **gumruk ticaret** kategorisi altında kamu kurumları için geliştirilecek açık kaynak **ihracat ithalat takip** projesidir.
-
-## Proje Hakkında
-
-Bu proje, kamu kurumlarının dijital dönüşüm sürecinde ihtiyaç duyulan ihracat ithalat takip çözümünü açık kaynak olarak sunmayı hedeflemektedir.
+Gümrük ve ticaret işlemleri için kapsamlı ihracat/ithalat takip ve yönetim sistemi.
 
 ## Özellikler
 
-- [ ] Temel sistem mimarisi
-- [ ] Kullanıcı yönetimi ve yetkilendirme
-- [ ] RESTful API geliştirme
-- [ ] Güvenlik katmanları
-- [ ] Veri yönetimi ve saklama
-- [ ] Raporlama ve analitik
-- [ ] Mobil uygulama desteği
-- [ ] Entegrasyon API'leri
+- ✅ Gümrük beyannamesi yönetimi
+- ✅ GTİP kodu sorgulama ve doğrulama
+- ✅ Kargo ve lojistik takibi
+- ✅ Gümrük vergisi hesaplama
+- ✅ E-fatura entegrasyonu
+- ✅ Döviz kuru takibi ve dönüşüm
+- ✅ Ticaret istatistikleri ve raporlama
+- ✅ Firma ve ürün yönetimi
+- ✅ Belge yönetimi (fatura, konşimento, vb.)
+- ✅ TCGB ve GTB entegrasyonu
 
-## Teknoloji Yığını
+## Teknolojiler
 
-- **Backend:** (Belirlenecek - Java/Spring, Python/Django, Node.js vb.)
-- **Frontend:** (Belirlenecek - React, Vue.js, Angular vb.)
-- **Veritabanı:** (Belirlenecek - PostgreSQL, MySQL, MongoDB vb.)
-- **Cache:** Redis
-- **Message Queue:** RabbitMQ / Apache Kafka
-- **Container:** Docker
-- **Orchestration:** Kubernetes
+### Backend
+- Node.js + Express.js
+- PostgreSQL
+- Redis
+- SOAP/XML (gümrük servisleri)
+- Bull Queue
+- Socket.io
+
+### Frontend
+- React + TypeScript
+- Redux Toolkit
+- Material-UI
+- React Query
+- ApexCharts
+
+### Entegrasyonlar
+- Gümrük API'leri
+- TCMB Döviz Kurları
+- E-fatura Servisleri
+- Kargo Takip API'leri
 
 ## Kurulum
 
 ```bash
-# Proje henüz geliştirme aşamasındadır
-# Kurulum adımları eklenecek
+# Backend
+cd backend
+npm install
+cp .env.example .env
+npm run dev
+
+# Frontend
+cd frontend
+npm install
+npm run dev
 ```
 
-## Kullanım
+## API Endpoints
 
-```bash
-# Kullanım örnekleri eklenecek
-```
+- `POST /api/declarations` - Beyanname oluşturma
+- `GET /api/gtip/:code` - GTİP kodu sorgulama
+- `POST /api/customs/calculate` - Vergi hesaplama
+- `GET /api/shipments/:trackingNo` - Kargo takibi
+- `GET /api/exchange-rates` - Döviz kurları
+- `GET /api/reports/trade-balance` - Ticaret dengesi raporu
 
-## API Dokümantasyonu
-
-API dokümantasyonu için [/docs](./docs) klasörüne bakınız.
-
-## Katkıda Bulunma
-
-Projeye katkıda bulunmak için lütfen [CONTRIBUTING.md](../CONTRIBUTING.md) dosyasını inceleyin.
+## Varsayılan Kullanıcı
+- Email: admin@gumruk.gov.tr
+- Şifre: Admin123!
 
 ## Lisans
-
-Bu proje açık kaynak lisansı altında yayınlanacaktır. Detaylar için [LICENSE](../LICENSE) dosyasına bakınız.
-
-## İletişim
-
-Proje hakkında sorularınız için issue açabilir veya proje ekibiyle iletişime geçebilirsiniz.
+MIT
