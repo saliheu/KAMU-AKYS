@@ -1,0 +1,77 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: dava_takip_postgres
+    environment:
+      POSTGRES_DB: dava_takip_db
+      POSTGRES_USER: dava_user
+      POSTGRES_PASSWORD: dava_pass
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - dava_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: dava_takip_redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    networks:
+      - dava_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: dava_takip_backend
+    depends_on:
+      - postgres
+      - redis
+    environment:
+      NODE_ENV: production
+      DATABASE_URL: postgresql://dava_user:dava_pass@postgres:5432/dava_takip_db
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: your-secret-key-here
+      JWT_REFRESH_SECRET: your-refresh-secret-key-here
+      EMAIL_HOST: smtp.gmail.com
+      EMAIL_PORT: 587
+      EMAIL_USER: your-email@gmail.com
+      EMAIL_PASS: your-email-password
+      EMAIL_FROM: noreply@dava-takip.gov.tr
+      FRONTEND_URL: http://localhost:3000
+      PORT: 5000
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend/uploads:/app/uploads
+      - ./backend/documents:/app/documents
+    networks:
+      - dava_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: dava_takip_frontend
+    depends_on:
+      - backend
+    environment:
+      VITE_API_URL: http://localhost:5000/api
+    ports:
+      - "3000:3000"
+    networks:
+      - dava_network
+
+volumes:
+  postgres_data:
+  redis_data:
+
+networks:
+  dava_network:
+    driver: bridge
