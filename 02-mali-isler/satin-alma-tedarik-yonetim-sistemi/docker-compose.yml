@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: procurement-db
+    environment:
+      POSTGRES_DB: procurement_db
+      POSTGRES_USER: procurement_user
+      POSTGRES_PASSWORD: procurement_pass_2024
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - procurement-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U procurement_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: procurement-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - procurement-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: procurement-backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://procurement_user:procurement_pass_2024@postgres:5432/procurement_db
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: your-secret-key-change-in-production
+      NODE_ENV: development
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - procurement-network
+
+  frontend:
+    build: ./frontend
+    container_name: procurement-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - procurement-network
+
+volumes:
+  postgres_data:
+
+networks:
+  procurement-network:
+    driver: bridge
