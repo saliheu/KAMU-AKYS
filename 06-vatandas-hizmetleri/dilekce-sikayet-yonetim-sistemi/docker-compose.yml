@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: complaint-postgres
+    environment:
+      POSTGRES_DB: complaint_management_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - complaint-network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: complaint-backend
+    depends_on:
+      - postgres
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/complaint_management_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres123
+      JWT_SECRET: mySecretKey123mySecretKey123mySecretKey123
+    ports:
+      - "8080:8080"
+    networks:
+      - complaint-network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: complaint-frontend
+    depends_on:
+      - backend
+    environment:
+      REACT_APP_API_URL: http://localhost:8080/api/v1
+    ports:
+      - "3000:80"
+    networks:
+      - complaint-network
+
+volumes:
+  postgres_data:
+
+networks:
+  complaint-network:
+    driver: bridge
