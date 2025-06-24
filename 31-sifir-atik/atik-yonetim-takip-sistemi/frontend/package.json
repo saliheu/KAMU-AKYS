@@ -1,0 +1,37 @@
+{
+  "name": "atik-yonetim-takip-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.20.1",
+    "axios": "^1.6.2",
+    "react-query": "^3.39.3",
+    "react-hook-form": "^7.48.2",
+    "@mui/material": "^5.15.0",
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
+    "@mui/icons-material": "^5.15.0",
+    "@mui/x-data-grid": "^6.18.3",
+    "@mui/x-date-pickers": "^6.18.3",
+    "date-fns": "^2.30.0",
+    "recharts": "^2.10.3",
+    "socket.io-client": "^4.6.1",
+    "react-qr-code": "^2.0.12",
+    "react-qr-reader": "^3.0.0-beta-1",
+    "notistack": "^3.0.1",
+    "react-dropzone": "^14.2.3"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.43",
+    "@types/react-dom": "^18.2.17",
+    "@vitejs/plugin-react": "^4.2.1",
+    "vite": "^5.0.8"
+  }
+}

@@ -1,0 +1,94 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: waste-db
+    environment:
+      POSTGRES_DB: waste_management_db
+      POSTGRES_USER: waste_user
+      POSTGRES_PASSWORD: waste_pass_2024
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - waste-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U waste_user"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: waste-redis
+    ports:
+      - "6379:6379"
+    networks:
+      - waste-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: waste-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: waste_user
+      RABBITMQ_DEFAULT_PASS: waste_pass_2024
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - waste-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  backend:
+    build: ./backend
+    container_name: waste-backend
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      DATABASE_URL: postgresql://waste_user:waste_pass_2024@postgres:5432/waste_management_db
+      REDIS_URL: redis://redis:6379
+      RABBITMQ_URL: amqp://waste_user:waste_pass_2024@rabbitmq:5672
+      JWT_SECRET: your-secret-key-change-in-production
+      PORT: 3000
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    networks:
+      - waste-network
+
+  frontend:
+    build: ./frontend
+    container_name: waste-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - waste-network
+
+volumes:
+  postgres_data:
+
+networks:
+  waste-network:
+    driver: bridge
