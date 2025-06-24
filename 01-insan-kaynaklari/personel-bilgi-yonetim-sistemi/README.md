@@ -1,48 +1,117 @@
-# personel uilgi yonetim sistemi
+# Personel Bilgi Yönetim Sistemi
 
-Bu modül **insan kaynaklari** kategorisi altında kamu kurumları için geliştirilecek açık kaynak **personel uilgi yonetim sistemi** projesidir.
+Bu modül **insan kaynakları** kategorisi altında kamu kurumları için geliştirilmiş açık kaynak **personel bilgi yönetim sistemi** projesidir.
 
 ## Proje Hakkında
 
-Bu proje, kamu kurumlarının dijital dönüşüm sürecinde ihtiyaç duyulan personel uilgi yonetim sistemi çözümünü açık kaynak olarak sunmayı hedeflemektedir.
+Bu proje, kamu kurumlarının dijital dönüşüm sürecinde ihtiyaç duyulan personel bilgi yönetim sistemi çözümünü açık kaynak olarak sunmaktadır.
 
 ## Özellikler
 
-- [ ] Temel sistem mimarisi
-- [ ] Kullanıcı yönetimi ve yetkilendirme
-- [ ] RESTful API geliştirme
-- [ ] Güvenlik katmanları
-- [ ] Veri yönetimi ve saklama
-- [ ] Raporlama ve analitik
-- [ ] Mobil uygulama desteği
-- [ ] Entegrasyon API'leri
+- ✅ Personel bilgi yönetimi
+- ✅ Kullanıcı yönetimi ve rol bazlı yetkilendirme
+- ✅ Departman ve pozisyon yönetimi
+- ✅ İzin takip sistemi
+- ✅ Belge yönetimi
+- ✅ Eğitim ve deneyim bilgileri
+- ✅ Acil durum iletişim bilgileri
+- ✅ RESTful API
+- ✅ Modern ve responsive arayüz
+- ✅ JWT tabanlı kimlik doğrulama
+- ✅ Docker desteği
 
 ## Teknoloji Yığını
 
-- **Backend:** (Belirlenecek - Java/Spring, Python/Django, Node.js vb.)
-- **Frontend:** (Belirlenecek - React, Vue.js, Angular vb.)
-- **Veritabanı:** (Belirlenecek - PostgreSQL, MySQL, MongoDB vb.)
+- **Backend:** Node.js, Express.js
+- **Frontend:** React, TypeScript, Tailwind CSS
+- **Veritabanı:** PostgreSQL
 - **Cache:** Redis
-- **Message Queue:** RabbitMQ / Apache Kafka
+- **ORM:** Sequelize
+- **Kimlik Doğrulama:** JWT
 - **Container:** Docker
-- **Orchestration:** Kubernetes
+- **API Dokümantasyonu:** Swagger (eklenecek)
 
 ## Kurulum
 
+### Ön Gereksinimler
+- Docker ve Docker Compose
+- Node.js 18+ (lokal geliştirme için)
+- PostgreSQL (lokal geliştirme için)
+
+### Docker ile Kurulum
+
 ```bash
-# Proje henüz geliştirme aşamasındadır
-# Kurulum adımları eklenecek
+# Repository'yi klonlayın
+git clone <repository-url>
+cd personel-bilgi-yonetim-sistemi
+
+# Environment dosyasını oluşturun
+cp backend/.env.example backend/.env
+
+# Docker container'ları başlatın
+docker-compose up -d
+
+# Uygulama http://localhost:3000 adresinde çalışacaktır
 ```
 
-## Kullanım
+### Lokal Kurulum
 
+Backend:
 ```bash
-# Kullanım örnekleri eklenecek
+cd backend
+npm install
+npm run dev
 ```
 
-## API Dokümantasyonu
+Frontend:
+```bash
+cd frontend
+npm install
+npm start
+```
 
-API dokümantasyonu için [/docs](./docs) klasörüne bakınız.
+## Varsayılan Kullanıcılar
+
+Sistem ilk kurulumda aşağıdaki kullanıcıları oluşturur:
+
+- **Admin:** admin@example.com / Admin123!
+- **HR Manager:** hr@example.com / Hr123!
+- **Employee:** employee@example.com / Employee123!
+
+## API Endpoints
+
+Başlıca API endpoint'leri:
+
+- `POST /api/auth/login` - Kullanıcı girişi
+- `GET /api/auth/me` - Mevcut kullanıcı bilgileri
+- `GET /api/personnel` - Personel listesi
+- `POST /api/personnel` - Yeni personel oluştur
+- `GET /api/personnel/:id` - Personel detayı
+- `PUT /api/personnel/:id` - Personel güncelle
+- `GET /api/departments` - Departman listesi
+- `GET /api/positions` - Pozisyon listesi
+
+## Proje Yapısı
+
+```
+personel-bilgi-yonetim-sistemi/
+├── backend/
+│   ├── config/         # Yapılandırma dosyaları
+│   ├── middleware/     # Express middleware'leri
+│   ├── models/         # Sequelize modelleri
+│   ├── routes/         # API route'ları
+│   ├── utils/          # Yardımcı fonksiyonlar
+│   └── server.js       # Ana sunucu dosyası
+├── frontend/
+│   ├── public/         # Statik dosyalar
+│   ├── src/
+│   │   ├── components/ # React bileşenleri
+│   │   ├── contexts/   # Context API
+│   │   ├── pages/      # Sayfa bileşenleri
+│   │   ├── routes/     # React Router yapılandırması
+│   │   └── services/   # API servisleri
+│   └── package.json
+└── docker-compose.yml
 
 ## Katkıda Bulunma
 

@@ -1,0 +1,73 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: personnel_db
+    environment:
+      POSTGRES_DB: personnel_management
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: Admin123!
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./backend/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    ports:
+      - "5432:5432"
+    networks:
+      - personnel_network
+
+  redis:
+    image: redis:7-alpine
+    container_name: personnel_redis
+    ports:
+      - "6379:6379"
+    networks:
+      - personnel_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: personnel_backend
+    ports:
+      - "5000:5000"
+    environment:
+      NODE_ENV: development
+      PORT: 5000
+      DATABASE_URL: postgresql://admin:Admin123!@postgres:5432/personnel_management
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: personnel_jwt_secret_key_2024
+      JWT_EXPIRE: 7d
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+      - ./uploads:/app/uploads
+    depends_on:
+      - postgres
+      - redis
+    networks:
+      - personnel_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: personnel_frontend
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_URL: http://localhost:5000/api
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+    networks:
+      - personnel_network
+
+networks:
+  personnel_network:
+    driver: bridge
+
+volumes:
+  postgres_data:
