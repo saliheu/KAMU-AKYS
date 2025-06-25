@@ -1,57 +1,148 @@
-# uilgi edinme sistemi
+# Bilgi Edinme Sistemi
 
-Bu modül **vatandas hizmetleri** kategorisi altında kamu kurumları için geliştirilecek açık kaynak **uilgi edinme sistemi** projesidir.
-
-## Proje Hakkında
-
-Bu proje, kamu kurumlarının dijital dönüşüm sürecinde ihtiyaç duyulan uilgi edinme sistemi çözümünü açık kaynak olarak sunmayı hedeflemektedir.
+4982 sayılı Bilgi Edinme Hakkı Kanunu kapsamında vatandaşların kamu kurumlarından bilgi edinme taleplerini yönetmek için geliştirilmiş kapsamlı sistem.
 
 ## Özellikler
 
-- [ ] Temel sistem mimarisi
-- [ ] Kullanıcı yönetimi ve yetkilendirme
-- [ ] RESTful API geliştirme
-- [ ] Güvenlik katmanları
-- [ ] Veri yönetimi ve saklama
-- [ ] Raporlama ve analitik
-- [ ] Mobil uygulama desteği
-- [ ] Entegrasyon API'leri
+### Vatandaş Özellikleri
+- ✅ Online bilgi edinme başvurusu
+- ✅ Başvuru durumu takibi
+- ✅ Belge yükleme ve indirme
+- ✅ Başvuru geçmişi görüntüleme
+- ✅ İtiraz ve şikayet sistemi
+- ✅ SMS/E-posta bildirimleri
 
-## Teknoloji Yığını
+### Kurum Özellikleri
+- ✅ Başvuru yönetimi ve atama
+- ✅ Otomatik süre takibi
+- ✅ Toplu işlem desteği
+- ✅ Şablon yanıtlar
+- ✅ İstatistik ve raporlama
+- ✅ Kurum içi yönlendirme
 
-- **Backend:** (Belirlenecek - Java/Spring, Python/Django, Node.js vb.)
-- **Frontend:** (Belirlenecek - React, Vue.js, Angular vb.)
-- **Veritabanı:** (Belirlenecek - PostgreSQL, MySQL, MongoDB vb.)
-- **Cache:** Redis
-- **Message Queue:** RabbitMQ / Apache Kafka
-- **Container:** Docker
-- **Orchestration:** Kubernetes
+### Sistem Özellikleri
+- ✅ 4982 sayılı kanuna uyumlu süreç yönetimi
+- ✅ Otomatik süre hesaplama (15+15 gün)
+- ✅ Çoklu kurum desteği
+- ✅ E-Devlet entegrasyonu hazırlığı
+- ✅ Güvenli belge saklama
+- ✅ Gelişmiş arama ve filtreleme
+
+## Teknolojiler
+
+### Backend
+- Node.js + Express.js
+- PostgreSQL
+- Redis (önbellekleme)
+- Socket.io (gerçek zamanlı)
+- Bull Queue (arka plan işleri)
+- JWT Authentication
+- Multer (dosya yükleme)
+
+### Frontend
+- React + TypeScript
+- Redux Toolkit
+- Material-UI
+- React Query
+- Socket.io Client
+- Chart.js
 
 ## Kurulum
 
+### Backend
 ```bash
-# Proje henüz geliştirme aşamasındadır
-# Kurulum adımları eklenecek
+cd backend
+npm install
+cp .env.example .env
+# .env dosyasını düzenleyin
+
+# Veritabanını oluşturun
+createdb bilgi_edinme_db
+
+# Sunucuyu başlatın
+npm run dev
 ```
 
-## Kullanım
-
+### Frontend
 ```bash
-# Kullanım örnekleri eklenecek
+cd frontend
+npm install
+npm start
 ```
 
-## API Dokümantasyonu
+## API Endpoints
 
-API dokümantasyonu için [/docs](./docs) klasörüne bakınız.
+### Kimlik Doğrulama
+- `POST /api/auth/register` - Vatandaş kaydı
+- `POST /api/auth/login` - Giriş
+- `POST /api/auth/refresh` - Token yenileme
+- `GET /api/auth/me` - Profil bilgileri
 
-## Katkıda Bulunma
+### Başvurular
+- `GET /api/requests` - Başvuru listesi
+- `GET /api/requests/:id` - Başvuru detayı
+- `POST /api/requests` - Yeni başvuru
+- `PUT /api/requests/:id` - Başvuru güncelleme
+- `POST /api/requests/:id/respond` - Başvuru yanıtlama
+- `POST /api/requests/:id/appeal` - İtiraz
 
-Projeye katkıda bulunmak için lütfen [CONTRIBUTING.md](../CONTRIBUTING.md) dosyasını inceleyin.
+### Kurumlar
+- `GET /api/institutions` - Kurum listesi
+- `GET /api/institutions/:id` - Kurum detayı
+- `GET /api/institutions/:id/categories` - Kurum kategorileri
+
+### Takip
+- `GET /api/tracking/:trackingCode` - Başvuru takibi
+- `POST /api/tracking/status` - Durum sorgulama
+
+### İstatistikler
+- `GET /api/statistics/dashboard` - Dashboard verileri
+- `GET /api/statistics/reports` - Raporlar
+- `GET /api/statistics/performance` - Performans metrikleri
+
+### Yönetim
+- `GET /api/admin/users` - Kullanıcı yönetimi
+- `GET /api/admin/settings` - Sistem ayarları
+- `POST /api/admin/templates` - Şablon yönetimi
+
+## Başvuru Süreçleri
+
+### Standart Süreç
+1. Vatandaş başvuru yapar
+2. Sistem otomatik olarak ilgili kuruma yönlendirir
+3. Kurum yetkilisi başvuruyu inceler
+4. 15 iş günü içinde yanıt verilir
+5. Gerekirse 15 gün ek süre alınabilir
+
+### İtiraz Süreci
+1. Vatandaş yanıta itiraz edebilir
+2. İtiraz üst makama yönlendirilir
+3. 15 gün içinde değerlendirilir
+4. Nihai karar bildirilir
+
+## Güvenlik Özellikleri
+
+- JWT tabanlı kimlik doğrulama
+- Rol bazlı erişim kontrolü
+- Rate limiting
+- Güvenli dosya yükleme
+- KVKK uyumlu veri saklama
+- İşlem logları
+
+## Varsayılan Kullanıcılar
+
+### Vatandaş
+- TC: 11111111111
+- Şifre: Vatandas123!
+
+### Kurum Yetkilisi
+- Email: yetkili@kurum.gov.tr
+- Şifre: Yetkili123!
+
+### Admin
+- Email: admin@bilgiedinme.gov.tr
+- Şifre: Admin123!
 
 ## Lisans
 
-Bu proje açık kaynak lisansı altında yayınlanacaktır. Detaylar için [LICENSE](../LICENSE) dosyasına bakınız.
-
-## İletişim
-
-Proje hakkında sorularınız için issue açabilir veya proje ekibiyle iletişime geçebilirsiniz.
+MIT

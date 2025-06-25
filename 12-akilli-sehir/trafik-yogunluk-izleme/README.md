@@ -1,57 +1,79 @@
-# trafik yogunluk izleme
+# Trafik Yoğunluk İzleme Sistemi
 
-Bu modül **akilli sehir** kategorisi altında kamu kurumları için geliştirilecek açık kaynak **trafik yogunluk izleme** projesidir.
-
-## Proje Hakkında
-
-Bu proje, kamu kurumlarının dijital dönüşüm sürecinde ihtiyaç duyulan trafik yogunluk izleme çözümünü açık kaynak olarak sunmayı hedeflemektedir.
+Akıllı şehirler için gerçek zamanlı trafik yoğunluğu izleme, analiz ve yönetim sistemi.
 
 ## Özellikler
 
-- [ ] Temel sistem mimarisi
-- [ ] Kullanıcı yönetimi ve yetkilendirme
-- [ ] RESTful API geliştirme
-- [ ] Güvenlik katmanları
-- [ ] Veri yönetimi ve saklama
-- [ ] Raporlama ve analitik
-- [ ] Mobil uygulama desteği
-- [ ] Entegrasyon API'leri
+### Trafik İzleme
+- ✅ Gerçek zamanlı trafik yoğunluk haritası
+- ✅ Kamera ve sensör entegrasyonu
+- ✅ AI destekli araç sayımı
+- ✅ Ortalama hız hesaplama
+- ✅ Trafik akış analizi
 
-## Teknoloji Yığını
+### Akıllı Yönetim
+- ✅ Adaptif trafik ışığı kontrolü
+- ✅ Dinamik rota önerileri
+- ✅ Tıkanıklık tahmin sistemi
+- ✅ Olay tespit ve uyarı
+- ✅ Acil durum koridoru yönetimi
 
-- **Backend:** (Belirlenecek - Java/Spring, Python/Django, Node.js vb.)
-- **Frontend:** (Belirlenecek - React, Vue.js, Angular vb.)
-- **Veritabanı:** (Belirlenecek - PostgreSQL, MySQL, MongoDB vb.)
-- **Cache:** Redis
-- **Message Queue:** RabbitMQ / Apache Kafka
-- **Container:** Docker
-- **Orchestration:** Kubernetes
+### Veri Kaynakları
+- ✅ CCTV kamera görüntüleri
+- ✅ IoT trafik sensörleri
+- ✅ GPS verileri
+- ✅ Mobil uygulama verileri
+- ✅ Sosyal medya entegrasyonu
 
-## Kurulum
+### Analitik ve Raporlama
+- ✅ Trafik yoğunluk ısı haritası
+- ✅ Zaman bazlı trafik analizi
+- ✅ Performans metrikleri
+- ✅ Tahmine dayalı analitik
+- ✅ Karbon emisyon hesaplama
 
-```bash
-# Proje henüz geliştirme aşamasındadır
-# Kurulum adımları eklenecek
-```
+## Teknolojiler
 
-## Kullanım
+### Backend
+- Node.js + Express.js
+- PostgreSQL (ana veri)
+- InfluxDB (zaman serisi)
+- Redis (önbellekleme)
+- Kafka (veri akışı)
+- TensorFlow.js (AI)
+- OpenCV (görüntü işleme)
 
-```bash
-# Kullanım örnekleri eklenecek
-```
+### Frontend
+- React + TypeScript
+- Redux Toolkit
+- Material-UI
+- Mapbox GL JS
+- D3.js (görselleştirme)
+- Socket.io Client
 
-## API Dokümantasyonu
+## API Endpoints
 
-API dokümantasyonu için [/docs](./docs) klasörüne bakınız.
+### Trafik Verileri
+- `GET /api/traffic/realtime` - Gerçek zamanlı veri
+- `GET /api/traffic/density/:area` - Bölge yoğunluğu
+- `GET /api/traffic/flow/:road` - Yol akış hızı
+- `POST /api/traffic/predict` - Yoğunluk tahmini
 
-## Katkıda Bulunma
+### Sensörler
+- `GET /api/sensors` - Sensör listesi
+- `POST /api/sensors/data` - Veri alımı
+- `GET /api/sensors/:id/status` - Sensör durumu
 
-Projeye katkıda bulunmak için lütfen [CONTRIBUTING.md](../CONTRIBUTING.md) dosyasını inceleyin.
+### Analitik
+- `GET /api/analytics/heatmap` - Isı haritası
+- `GET /api/analytics/trends` - Trendler
+- `GET /api/analytics/incidents` - Olaylar
+
+## Varsayılan Kullanıcı
+
+- Email: admin@trafik.gov.tr
+- Şifre: Admin123!
 
 ## Lisans
 
-Bu proje açık kaynak lisansı altında yayınlanacaktır. Detaylar için [LICENSE](../LICENSE) dosyasına bakınız.
-
-## İletişim
-
-Proje hakkında sorularınız için issue açabilir veya proje ekibiyle iletişime geçebilirsiniz.
+MIT
