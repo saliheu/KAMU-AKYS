@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#1976d2" />
+    <meta name="description" content="Mahkeme Randevu Sistemi - Adalet Bakanlığı resmi randevu platformu" />
+    <meta name="keywords" content="mahkeme, randevu, adalet, uyap, dava, hakim, avukat" />
+    <meta name="author" content="Adalet Bakanlığı" />
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://randevu.adalet.gov.tr/" />
+    <meta property="og:title" content="Mahkeme Randevu Sistemi" />
+    <meta property="og:description" content="Adalet Bakanlığı resmi randevu platformu" />
+    <meta property="og:image" content="%PUBLIC_URL%/og-image.png" />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content="https://randevu.adalet.gov.tr/" />
+    <meta property="twitter:title" content="Mahkeme Randevu Sistemi" />
+    <meta property="twitter:description" content="Adalet Bakanlığı resmi randevu platformu" />
+    <meta property="twitter:image" content="%PUBLIC_URL%/twitter-image.png" />
+
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    
+    <title>Mahkeme Randevu Sistemi | Adalet Bakanlığı</title>
+    
+    <!-- Security headers -->
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-XSS-Protection" content="1; mode=block">
+    <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+  </head>
+  <body>
+    <noscript>
+      <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+        <h2>JavaScript Gerekli</h2>
+        <p>Bu uygulamayı kullanabilmek için JavaScript'i etkinleştirmeniz gerekmektedir.</p>
+        <p>Lütfen tarayıcınızın ayarlarından JavaScript'i etkinleştirin ve sayfayı yenileyin.</p>
+      </div>
+    </noscript>
+    
+    <!-- Loading screen -->
+    <div id="loading-screen" style="
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: #1976d2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      z-index: 9999;
+    ">
+      <div style="text-align: center;">
+        <div style="
+          width: 50px;
+          height: 50px;
+          border: 3px solid rgba(255,255,255,0.3);
+          border-top: 3px solid white;
+          border-radius: 50%;
+          animation: spin 1s linear infinite;
+          margin-bottom: 20px;
+        "></div>
+        <h3 style="margin: 0; font-weight: 300;">Mahkeme Randevu Sistemi</h3>
+        <p style="margin: 10px 0 0 0; opacity: 0.8;">Yükleniyor...</p>
+      </div>
+    </div>
+    
+    <style>
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+      
+      /* Hide loading screen when React app loads */
+      .app-loaded #loading-screen {
+        display: none;
+      }
+    </style>
+    
+    <div id="root"></div>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', function() {
+          navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+              console.log('SW registered: ', registration);
+            })
+            .catch(function(registrationError) {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
+    
+    <!-- Hide loading screen when app starts -->
+    <script>
+      window.addEventListener('DOMContentLoaded', function() {
+        setTimeout(function() {
+          document.body.classList.add('app-loaded');
+        }, 1000);
+      });
+    </script>
+  </body>
+</html>
