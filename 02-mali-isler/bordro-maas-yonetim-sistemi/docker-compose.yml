@@ -1,0 +1,87 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: bordro_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - bordro_network
+
+  postgres_iam:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: iam_db
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin123
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_iam_data:/var/lib/postgresql/data
+    networks:
+      - bordro_network
+
+  iam_service:
+    build:
+      context: ../../iam_service
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      DATABASE_URL: postgresql://admin:admin123@postgres_iam:5432/iam_db
+      ENVIRONMENT: development
+    depends_on:
+      - postgres_iam
+    volumes:
+      - ../../iam_service:/app
+    networks:
+      - bordro_network
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://admin:admin123@postgres:5432/bordro_db
+      ENVIRONMENT: development
+    depends_on:
+      - postgres
+      - iam_service
+    volumes:
+      - ./backend:/app
+    networks:
+      - bordro_network
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_API_BASE_URL: http://localhost:8000
+      REACT_APP_IAM_BASE_URL: http://localhost:8001
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    depends_on:
+      - backend
+      - iam_service
+    networks:
+      - bordro_network
+
+volumes:
+  postgres_data:
+  postgres_iam_data:
+
+networks:
+  bordro_network:
+    driver: bridge 
